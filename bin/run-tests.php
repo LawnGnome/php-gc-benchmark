@@ -24,7 +24,7 @@ foreach (glob('/source/tests/*php') as $test) {
       $end = microtime(true);
       $times[] = $end - $start;
     }
-    printf('%12.3f ', array_sum($times) / count($times));
+    printf('%15.3f ', array_sum($times) / count($times));
   }
   echo "\n";
 }
