@@ -20,9 +20,13 @@ foreach (glob('/source/tests/*php') as $test) {
     $times = [];
     foreach (range(0, RUNS) as $i) {
       $start = microtime(true);
-      shell_exec("$binary -n -d memory_limit=1G $test");
+      $return = 0;
+      $lines = [];
+      exec("$binary -n -d memory_limit=1G $test >/dev/null 2>&1", $lines, $return);
       $end = microtime(true);
-      $times[] = $end - $start;
+      if ($return == 0) {
+        $times[] = $end - $start;
+      }
     }
     printf('%15.3f ', array_sum($times) / count($times));
   }
